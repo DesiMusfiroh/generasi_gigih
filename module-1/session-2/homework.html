@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework Session 1 Module 1</title>
+  
+    <style>
+        .container {
+            padding: 10px;
+            margin: 20px;
+            border-style: solid;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Create Playlist</h1>
+    <form action="">
+        <label for="title">Title </label>
+        <input type="text" name="" id=""> <br>
+        <label for="description">Description</label>
+        <input type="text" name="" id=""> <br>
+        <button onclick="showAlert()">Submit</button>
+    </form>
+
+    <div class="container">
+        <div id="img-container"></div>
+        <p id="title">Track Title</p>
+        <p id="artist">Artist</p>
+        <p id="album">Album</p>
+        <button>Select</button>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+
+        function showAlert() {
+            alert("Alert !!");
+        }
+
+        axios.get('https://gist.githubusercontent.com/aryapradipta9/e6492383477803b233916e01f36d5465/raw/66942c739d66d3774303f84071696aa865a07077/single-sample.json')
+        .then(response => {
+            const imageContainer = document.getElementById("img-container");
+            const title = document.getElementById("title");
+            const artist = document.getElementById("artist");
+            const album = document.getElementById("album");
+
+            title.innerHTML = response.data.name;
+            artist.innerHTML = response.data.artists[0].name
+            album.innerHTML = response.data.album.name
+            imageContainer.innerHTML = `<img class='image' src="${response.data.album.images[0].url}" alt="${response.data.name}">`;
+        })
+        .catch(error => {
+            console.log(error);
+            alert(error);
+        });
+    
+        
+    </script>
+</body>
+
+</html>

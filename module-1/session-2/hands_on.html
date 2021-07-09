@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hands On Lab Session 1 Module 1</title>
+</head>
+
+<body>
+
+    <table id="datatable">
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Age</td>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <button id="calculateButton" onclick="calculate()">Calculate</button>
+    <div id="averageAge"></div>
+
+    <script>
+        const students = [
+            { name: "Alice", age: 20 },
+            { name: "Bob", age: 21 },
+            { name: "Jane", age: 20 }
+        ];
+
+        const renderTable = () => {
+            students.forEach(({ name, age }) => {
+                const table = document.getElementById("datatable");
+                table.insertRow().innerHTML = `<td>${name}</td><td>${age}</td>`;
+            });
+        };
+    
+        const calculateAvgAge = (students) => {
+            const total = students.reduce((acc, student) => acc + student.age, 0);
+            return total / students.length;
+        };
+    
+        const wait = (time) => {
+            return new Promise((resolve) => {
+                setTimeout(resolve, time)
+            });
+        }
+    
+        function calculate() {
+            console.log("calculation start !");
+            const avgAge = calculateAvgAge(students);
+            wait(5000).then(() => {
+                console.log('average age is =' + avgAge);
+                document.getElementById("averageAge").innerHTML = avgAge;
+            });
+            secondCall();
+        }
+       
+        function secondCall() {
+            console.log('second call started !');
+            wait(2000).then(() => {
+                console.log('second call finished !');
+                thirdCall();
+            })
+        }
+
+        function thirdCall() {
+            console.log('third call started !');
+            wait(5000).then(() => console.log('third call finished !'));
+        }
+
+        renderTable();
+    </script>
+</body>
+</html>
